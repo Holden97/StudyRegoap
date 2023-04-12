@@ -30,22 +30,17 @@ namespace ReGoap.Unity.FSMExample.Actions
         {
             base.Run(previous, next, settings, goalState, done, fail);
 
-            if (settings.TryGetValue("objectivePosition", out var v))
+            if (settings.TryGetValue("objectiveTransform", out var v))
                 smsGoto.GoTo((Vector3)v, OnDoneMovement, OnFailureMovement);
             else
                 failCallback(this);
         }
 
-        public override bool CheckProceduralCondition(GoapActionStackData<string, object> stackData)
-        {
-            return base.CheckProceduralCondition(stackData) && stackData.settings.HasKey("objectivePosition");
-        }
-
         public override ReGoapState<string, object> GetEffects(GoapActionStackData<string, object> stackData)
         {
-            if (stackData.settings.TryGetValue("objectivePosition", out var objectivePosition))
+            if (stackData.settings.TryGetValue("objectiveTransform", out var objectiveTransform))
             {
-                effects.Set("isAtPosition", objectivePosition);
+                effects.Set("isAtTransform", objectiveTransform);
                 if (stackData.settings.HasKey("reconcilePosition"))
                     effects.Set("reconcilePosition", true);
             }
@@ -58,14 +53,14 @@ namespace ReGoap.Unity.FSMExample.Actions
 
         public override List<ReGoapState<string, object>> GetSettings(GoapActionStackData<string, object> stackData)
         {
-            if (stackData.goalState.TryGetValue("isAtPosition", out var isAtPosition))
+            if (stackData.goalState.TryGetValue("isAtTransform", out var isAtPosition))
             {
-                settings.Set("objectivePosition", isAtPosition);
+                settings.Set("objectiveTransform", isAtPosition);
                 return base.GetSettings(stackData);
             }
             else if (stackData.goalState.HasKey("reconcilePosition") && stackData.goalState.Count == 1)
             {
-                settings.Set("objectivePosition", stackData.agent.GetMemory().GetWorldState().Get("startPosition"));
+                settings.Set("objectiveTransform", stackData.agent.GetMemory().GetWorldState().Get("startPosition"));
                 settings.Set("reconcilePosition", true);
                 return base.GetSettings(stackData);
             }
@@ -76,10 +71,10 @@ namespace ReGoap.Unity.FSMExample.Actions
         public override float GetCost(GoapActionStackData<string, object> stackData)
         {
             var distance = 0.0f;
-            if (stackData.settings.TryGetValue("objectivePosition", out object objectivePosition)
-                && stackData.currentState.TryGetValue("isAtPosition", out object isAtPosition))
+            if (stackData.settings.TryGetValue("objectiveTransform", out object objectiveTransform)
+                && stackData.currentState.TryGetValue("isAtTransform", out object isAtPosition))
             {
-                if (objectivePosition is Vector3 p && isAtPosition is Vector3 r)
+                if (objectiveTransform is Vector3 p && isAtPosition is Vector3 r)
                     distance = (p - r).magnitude;
             }
             return base.GetCost(stackData) + Cost + distance;

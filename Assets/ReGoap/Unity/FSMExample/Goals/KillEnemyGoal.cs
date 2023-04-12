@@ -10,6 +10,7 @@ namespace ReGoap.Unity.FSMExample.Goals
         protected override void Awake()
         {
             base.Awake();
+            enemyTransform = GameObject.FindObjectOfType<Enemy>()?.transform;
             goal.Set("enemy" + enemyTransform.GetInstanceID() + "isDead", true);
         }
 

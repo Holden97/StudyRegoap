@@ -16,13 +16,15 @@ GameObject:
   - component: {fileID: 114626219609676066}
   - component: {fileID: 3413757366016996938}
   - component: {fileID: 848755465906368672}
+  - component: {fileID: 6215569431527149129}
+  - component: {fileID: 6647693474160178754}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4193476711173662
 Transform:
   m_ObjectHideFlags: 0
@@ -144,6 +146,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SensorsUpdateDelay: 0.3
+--- !u!114 &6215569431527149129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125005807267310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d517d2b145239bd4794d449674741eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: KillEnemy
+  Priority: 1
+  ErrorDelay: 0.5
+  WarnPossibleGoal: 1
+  enemyTransform: {fileID: 0}
+--- !u!114 &6647693474160178754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125005807267310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef7fbca400737c4dae3b19d5fa09baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: MeleeAttack
+  Cost: 1
 --- !u!1 &1848442404087198
 GameObject:
   m_ObjectHideFlags: 0

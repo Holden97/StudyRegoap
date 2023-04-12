@@ -6,11 +6,10 @@ public class Enemy : MonoBehaviour
 {
     public int maxHealth = 100;
     public int curHealth = 0;
-    public bool isAlive;
+    public bool isAlive => curHealth > 0;
     void Start()
     {
         curHealth = maxHealth;
-        isAlive = true;
     }
 
     void Update()
@@ -18,7 +17,6 @@ public class Enemy : MonoBehaviour
         if (!isAlive) return;
         if (curHealth <= 0)
         {
-            isAlive = false;
             Debug.Log(this.GetInstanceID() + "isDead!");
         }
     }
